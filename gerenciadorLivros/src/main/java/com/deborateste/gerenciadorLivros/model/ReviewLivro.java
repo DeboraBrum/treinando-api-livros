@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +20,7 @@ public class ReviewLivro {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer idReview;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="id_livro")
 	private Livro livro;
 	
@@ -30,6 +30,8 @@ public class ReviewLivro {
 	@Column(name="review", nullable=false, columnDefinition="TEXT")
 	private String review;
 	
+	@Column(name="nota", nullable=false)
+	private Integer nota;
 	
 	public Integer getIdReview() {
 		return idReview;
@@ -55,7 +57,11 @@ public class ReviewLivro {
 	public void setReview(String review) {
 		this.review = review;
 	}
-	
-	
+	public Integer getNota() {
+		return nota;
+	}
+	public void setNota(Integer nota) {
+		this.nota = nota;
+	}
 
 }
