@@ -25,6 +25,8 @@ public class GerenciadorLivrosSecurityConfiguration extends WebSecurityConfigure
 								.antMatchers(HttpMethod.GET, "/reviews").permitAll()
 								.antMatchers(HttpMethod.GET, "/generos").permitAll()
 								.antMatchers(HttpMethod.GET, "/livroInfo*/*").permitAll()
+								.antMatchers(HttpMethod.POST, "/user/cadastro").permitAll()
+								.antMatchers(HttpMethod.POST, "/login").permitAll()
 								.anyRequest().authenticated().and().cors();
 		httpSec.addFilterBefore(new GerenciadorLivrosFilter(), UsernamePasswordAuthenticationFilter.class);
 	}

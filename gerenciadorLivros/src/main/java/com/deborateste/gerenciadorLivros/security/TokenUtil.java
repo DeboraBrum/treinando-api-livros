@@ -27,7 +27,7 @@ public class TokenUtil {
 	private static final String HEADER = "Authorization";
 	private static final String PREFIX = "Bearer ";
 	private static final long EXPIRATION = 2*DIAS;
-	private static final String SECRET_KEY = "g3r3nc14d0rD3L1vr0sD3b0r4";
+	private static final String SECRET_KEY = "g3r3nc14d0rD3L1vr0sD3b0r4T35t4nd0";
 	private static final String EMISSOR = "D3b0r4BrumN3v3s";
 	
 	public static String createToken(Usuario u) {

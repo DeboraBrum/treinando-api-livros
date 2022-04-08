@@ -8,12 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="usuario")
+@Table(name="usuarios")
 public class Usuario {
 	@Id
 	@Column(name="id", nullable=false)
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name="nome", nullable=false)
+	private String nome;
+	
+	@Column(name="email", nullable=false, unique=true)
+	private String email;
 	
 	@Column(name="username", nullable=false, unique=true)
 	private String username;
@@ -43,6 +49,22 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 }
