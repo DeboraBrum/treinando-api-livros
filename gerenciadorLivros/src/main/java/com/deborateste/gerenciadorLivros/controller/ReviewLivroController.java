@@ -1,6 +1,7 @@
 package com.deborateste.gerenciadorLivros.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.deborateste.gerenciadorLivros.exceptions.DadosInvalidosException;
 import com.deborateste.gerenciadorLivros.model.ReviewLivro;
+import com.deborateste.gerenciadorLivros.service.ILivroService;
 import com.deborateste.gerenciadorLivros.service.IReviewLivroService;
 
 @RestController
@@ -20,19 +24,33 @@ public class ReviewLivroController {
 
 	@Autowired
 	private IReviewLivroService service;
+	
+	@Autowired
+	private ILivroService serviceLivro;
 
 	@GetMapping("/reviews")
-	public ResponseEntity<?> getAll() {
+	public ResponseEntity<?> getAll(@RequestParam Optional<Integer> livro) {
 		try {
-			List<ReviewLivro> res = service.getAll();
-			if (res != null) {
-				return ResponseEntity.ok(res);
+			if(livro.isPresent()) {
+				if(!serviceLivro.thisExists(livro.get())) {
+					System.out.println("entrou aqui");
+					throw new DadosInvalidosException("Livro inexistente");
+				}
+				List<ReviewLivro> lista = service.getAllByLivroId(livro.get());
+				return ResponseEntity.ok(lista);
 			}
+			
+			List<ReviewLivro> res = service.getAll();
+			if (res == null) {
+				return ResponseEntity.ok("");
+			}
+			return ResponseEntity.ok(res);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		return null;
 	}
+	
 	@PostMapping("/reviews")
 	public ResponseEntity<?> addOne(@RequestBody ReviewLivro rv){
 		try {

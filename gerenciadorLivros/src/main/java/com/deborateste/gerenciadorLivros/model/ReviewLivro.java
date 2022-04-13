@@ -1,6 +1,6 @@
 package com.deborateste.gerenciadorLivros.model;
 
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,15 +24,21 @@ public class ReviewLivro {
 	@JoinColumn(name="id_livro")
 	private Livro livro;
 	
-	@Column(name="data")
-	private LocalDate data;
-	
 	@Column(name="review", nullable=false, columnDefinition="TEXT")
 	private String review;
 	
 	@Column(name="nota", nullable=false)
 	private Integer nota;
 	
+	@Column(name="momento", nullable=false)
+	private Timestamp momento;
+	
+	public Timestamp getMomento() {
+		return momento;
+	}
+	public void setMomento(Timestamp momento) {
+		this.momento = momento;
+	}
 	public Integer getIdReview() {
 		return idReview;
 	}
@@ -44,12 +50,6 @@ public class ReviewLivro {
 	}
 	public void setLivro(Livro livro) {
 		this.livro = livro;
-	}
-	public LocalDate getData() {
-		return data;
-	}
-	public void setData(LocalDate data) {
-		this.data = data;
 	}
 	public String getReview() {
 		return review;

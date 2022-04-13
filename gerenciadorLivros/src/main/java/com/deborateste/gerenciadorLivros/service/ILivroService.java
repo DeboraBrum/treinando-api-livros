@@ -11,4 +11,5 @@ public interface ILivroService {
 	public Livro addOne(Livro rv);
 	public Livro editOne(Integer id, Livro rv);
 	public boolean deleteOne(Integer id);
+	public boolean thisExists(Integer id);
 }

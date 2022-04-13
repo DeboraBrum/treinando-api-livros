@@ -50,6 +50,11 @@ public class LivroServiceImpl implements ILivroService {
 		dao.deleteById(id);
 		return true;
 	}
+	@Override
+	public boolean thisExists(Integer id) {
+		if(this.getOne(id) == null) return false;
+		return true;
+	}
 
 
 }

@@ -1,6 +1,7 @@
 package com.deborateste.gerenciadorLivros.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -48,5 +49,10 @@ public class ReviewLivroServiceImpl implements IReviewLivroService{
 	@Override
 	public ReviewLivro getOneByLivroId(Integer id) {
 		return dao.getOneByLivroId(id);
+	}
+
+	@Override
+	public List<ReviewLivro> getAllByLivroId(Integer id) {
+		return dao.findAllByLivroId(id);
 	}
 }
