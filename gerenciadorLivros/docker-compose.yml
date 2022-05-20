@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  postgresql:
+    container_name: postgresql
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: senha
+      POSTGRES_DB: gerenciador_livros
+    ports: 
+      - "5432:5432"
+
+  api_livros:
+    container_name: contain-livros
+    image: debrum/api-livros
+    environment:
+      USER: user
+      PASSWORD: senha
+      DATABASE_URL: "postgresql://postgresql:5432/gerenciador_livros?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC"
+    ports: 
+      - "8080:8080"
+    depends_on:
+      - postgresql
