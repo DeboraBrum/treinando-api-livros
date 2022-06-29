@@ -50,8 +50,6 @@ E rode o projeto na sua IDE.
 
 Tudo pronto! Agora, para uma visão geral da API, basta acessar http://localhost:8080/swagger-ui.html, onde você encontra a documentação de todos os endpoints disponíveis com índice e descrição, numa interface amigável do Swagger, além de poder utiliza-los com requisições e repostas, interagindo com o seu banco de dados local.
 
-No início do projeto, estávamos desenvolvendo a documentação manualmente aqui no README, até termos a ideia de gerá-la automaticamente com o swagger. Ainda assim, mantivemos a documentação manual aqui também no final do README, como registro da mudança, e como outro exemplo de abordagem.
-
 ## ⚙️ Funcionalidades
 
 Funcionalidades que a API oferece:
