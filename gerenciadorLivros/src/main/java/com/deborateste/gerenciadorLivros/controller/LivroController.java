@@ -18,6 +18,9 @@ import com.deborateste.gerenciadorLivros.model.ReviewLivro;
 import com.deborateste.gerenciadorLivros.service.ILivroService;
 import com.deborateste.gerenciadorLivros.service.IReviewLivroService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 public class LivroController {
 
@@ -28,6 +31,7 @@ public class LivroController {
 	private IReviewLivroService serviceReview;
 
 	@GetMapping("/livros")
+	@Operation(summary = "Recupera livros cadastrados", description = "Este endpoint retorna todos os livros já cadastrados", security = @SecurityRequirement(name = "bearerAuth"))
 	public ResponseEntity<?> getAll() {
 		try {
 			List<Livro> res = service.getAll();
@@ -42,6 +46,7 @@ public class LivroController {
 	}
 
 	@GetMapping("/livroInfo/{id}")
+	@Operation(summary = "Recupera um livro cadastrado", description = "Este endpoint retorna um livro em específico", security = @SecurityRequirement(name = "bearerAuth"))
 	public ResponseEntity<?> teste(@PathVariable Integer id) {
 		try {
 			Livro l = service.getOne(id);
@@ -56,6 +61,7 @@ public class LivroController {
 	}
 
 	@PostMapping("/livros")
+	@Operation(summary = "Cadastro de livro", description = "Este endpoint cadastra um livro", security = @SecurityRequirement(name = "bearerAuth"))
 	public ResponseEntity<?> addOne(@RequestBody Livro l) {
 		try {
 			Livro res = service.addOne(l);
@@ -69,6 +75,7 @@ public class LivroController {
 	}
 
 	@PutMapping("/livros/{id}")
+	@Operation(summary = "Edição de livro", description = "Este endpoint edita um livro", security = @SecurityRequirement(name = "bearerAuth"))
 	public ResponseEntity<?> editOne(@PathVariable Integer id, @RequestBody Livro l) {
 		try {
 			Livro res = service.editOne(id, l);
@@ -83,6 +90,7 @@ public class LivroController {
 	}
 
 	@DeleteMapping("/livros/{id}")
+	@Operation(summary = "Deletar um livro", description = "Este endpoint deleta um livro", security = @SecurityRequirement(name = "bearerAuth"))
 	public ResponseEntity<?> deleteOne(@PathVariable Integer id) {
 		try {
 			if (service.deleteOne(id)) {

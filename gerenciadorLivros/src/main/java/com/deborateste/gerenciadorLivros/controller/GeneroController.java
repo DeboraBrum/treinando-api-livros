@@ -9,15 +9,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.deborateste.gerenciadorLivros.model.Genero;
 import com.deborateste.gerenciadorLivros.service.IGeneroService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 public class GeneroController {
-	
+
 	@Autowired
 	private IGeneroService service;
-	
+
 	@GetMapping("/generos")
-	public ArrayList<Genero> getAll(){
-		return (ArrayList<Genero>)service.recuperarTodos();
+	@Operation(summary = "Recupera gêneros cadastrados", description = "Este endpoint retorna todos os gêneros já cadastrados", security = @SecurityRequirement(name = "bearerAuth"))
+	public ArrayList<Genero> getAll() {
+		return (ArrayList<Genero>) service.recuperarTodos();
 	}
 
 }

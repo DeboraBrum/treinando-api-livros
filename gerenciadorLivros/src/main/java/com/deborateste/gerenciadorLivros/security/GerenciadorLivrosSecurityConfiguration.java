@@ -27,6 +27,7 @@ public class GerenciadorLivrosSecurityConfiguration extends WebSecurityConfigure
 								.antMatchers(HttpMethod.GET, "/livroInfo*/*").permitAll()
 								.antMatchers(HttpMethod.POST, "/user/cadastro").permitAll()
 								.antMatchers(HttpMethod.POST, "/login").permitAll()
+								.antMatchers("/swagger-ui*/**", "/techgeeknext-openapi/**", "/api-docs*/**").permitAll()
 								.anyRequest().authenticated().and().cors();
 		httpSec.addFilterBefore(new GerenciadorLivrosFilter(), UsernamePasswordAuthenticationFilter.class);
 	}

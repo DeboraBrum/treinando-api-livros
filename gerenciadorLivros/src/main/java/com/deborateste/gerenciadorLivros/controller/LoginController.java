@@ -10,6 +10,8 @@ import com.deborateste.gerenciadorLivros.dto.UserLoginDTO;
 import com.deborateste.gerenciadorLivros.security.Token;
 import com.deborateste.gerenciadorLivros.service.IUserService;
 
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 public class LoginController {
 	
@@ -17,6 +19,7 @@ public class LoginController {
 	private IUserService service;
 	
 	@PostMapping("/login")
+	@Operation(summary = "Login de usuário", description = "Este endpoint autentica um usuário")
 	public ResponseEntity<?> login(@RequestBody UserLoginDTO dadosLogin){
 		try {
 			if(dadosLogin.getUsername() == null || dadosLogin.getSenha() == null) {

@@ -10,24 +10,29 @@ import com.deborateste.gerenciadorLivros.model.Usuario;
 import com.deborateste.gerenciadorLivros.modelview.UsuarioCadastrado;
 import com.deborateste.gerenciadorLivros.service.IUserService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 public class UserController {
-	
+
 	@Autowired
-	private IUserService serviceUser; 
-	
+	private IUserService serviceUser;
+
 	@PostMapping("/user/cadastro")
-	public ResponseEntity<?> cadastroUser(@RequestBody Usuario user){
+	@Operation(summary = "Cadastra usuário", description = "Este endpoint cadastra um usuário", security = @SecurityRequirement(name = "bearerAuth"))
+	public ResponseEntity<?> cadastroUser(@RequestBody Usuario user) {
 		try {
-			if(serviceUser.existeEmail(user.getEmail()) || serviceUser.existeUsername(user.getUsername())) {
+			if (serviceUser.existeEmail(user.getEmail()) || serviceUser.existeUsername(user.getUsername())) {
 				throw new Exception("Já existe cadastro com esse email ou username.");
 			}
 			Usuario usuarioCadastrado = serviceUser.cadastrarUser(user);
-			if(usuarioCadastrado == null) return ResponseEntity.internalServerError().build();
-			
+			if (usuarioCadastrado == null)
+				return ResponseEntity.internalServerError().build();
+
 			return ResponseEntity.status(201).body(new UsuarioCadastrado(usuarioCadastrado));
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}

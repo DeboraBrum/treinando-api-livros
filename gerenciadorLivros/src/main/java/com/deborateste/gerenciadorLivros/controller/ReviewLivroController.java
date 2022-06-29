@@ -19,27 +19,31 @@ import com.deborateste.gerenciadorLivros.model.ReviewLivro;
 import com.deborateste.gerenciadorLivros.service.ILivroService;
 import com.deborateste.gerenciadorLivros.service.IReviewLivroService;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.Operation;
+
 @RestController
 public class ReviewLivroController {
 
 	@Autowired
 	private IReviewLivroService service;
-	
+
 	@Autowired
 	private ILivroService serviceLivro;
 
 	@GetMapping("/reviews")
+	@Operation(summary = "Recupera reviews cadastradas", description = "Este endpoint retorna todos as reviews já cadastradas", security = @SecurityRequirement(name = "bearerAuth"))
 	public ResponseEntity<?> getAll(@RequestParam Optional<Integer> livro) {
 		try {
-			if(livro.isPresent()) {
-				if(!serviceLivro.thisExists(livro.get())) {
+			if (livro.isPresent()) {
+				if (!serviceLivro.thisExists(livro.get())) {
 					System.out.println("entrou aqui");
 					throw new DadosInvalidosException("Livro inexistente");
 				}
 				List<ReviewLivro> lista = service.getAllByLivroId(livro.get());
 				return ResponseEntity.ok(lista);
 			}
-			
+
 			List<ReviewLivro> res = service.getAll();
 			if (res == null) {
 				return ResponseEntity.ok("");
@@ -50,47 +54,49 @@ public class ReviewLivroController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
-	
+
 	@PostMapping("/reviews")
-	public ResponseEntity<?> addOne(@RequestBody ReviewLivro rv){
+	@Operation(summary = "Cadastra Review", description = "Este endpoint cadastra uma review referente a algum livro", security = @SecurityRequirement(name = "bearerAuth"))
+	public ResponseEntity<?> addOne(@RequestBody ReviewLivro rv) {
 		try {
 			ReviewLivro res = service.addOne(rv);
-			if(res != null) {
+			if (res != null) {
 				return ResponseEntity.status(201).body(res);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return ResponseEntity.badRequest().build();
 	}
+
 	@PutMapping("/reviews/{id}")
-	public ResponseEntity<?> editOne(@PathVariable Integer id, @RequestBody ReviewLivro rv){
+	@Operation(summary = "Edita Review", description = "Este endpoint edita uma review referente a algum livro", security = @SecurityRequirement(name = "bearerAuth"))
+	public ResponseEntity<?> editOne(@PathVariable Integer id, @RequestBody ReviewLivro rv) {
 		try {
 			ReviewLivro res = service.editOne(id, rv);
-			if(res != null) {
+			if (res != null) {
 				return ResponseEntity.ok(res);
 			}
 			return ResponseEntity.notFound().build();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-	
+
 	@DeleteMapping("/reviews/{id}")
-	public ResponseEntity<?> deleteOne(@PathVariable Integer id){
+	@Operation(summary = "Deletar Review", description = "Este endpoint deleta uma review referente a algum livro", security = @SecurityRequirement(name = "bearerAuth"))
+	public ResponseEntity<?> deleteOne(@PathVariable Integer id) {
 		try {
-			if(service.deleteOne(id)) {
+			if (service.deleteOne(id)) {
 				return ResponseEntity.status(200).build();
 			}
 			return ResponseEntity.badRequest().build();
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-	
-	
-	
+
 }
