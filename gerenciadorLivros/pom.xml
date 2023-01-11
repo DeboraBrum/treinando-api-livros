@@ -48,6 +48,19 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.3.22</version>
+		</dependency>
+
+		<!--  dependencia do spring transaction  -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>6.0.3</version>
+		</dependency>
 		
 		<!--  dependencia do JWT  -->
 		<dependency>
@@ -68,10 +81,10 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-      <groupId>org.springdoc</groupId>
-      <artifactId>springdoc-openapi-ui</artifactId>
-    	<version>1.6.6</version>
-   	</dependency>
+      		<groupId>org.springdoc</groupId>
+      		<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.6</version>
+   		</dependency>
 
 	</dependencies>
 
