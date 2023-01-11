@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
-import com.deborateste.gerenciadorLivros.model.Usuario;
+import com.deborateste.gerenciadorLivros.core.domain.model.Usuario;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

@@ -1,6 +1,6 @@
 package com.deborateste.gerenciadorLivros.modelview;
 
-import com.deborateste.gerenciadorLivros.model.Usuario;
+import com.deborateste.gerenciadorLivros.core.domain.model.Usuario;
 
 public class UsuarioCadastrado {
 	
